@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact Us</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header>
+    <!-- <div class="logo">Your Logo</div> -->
+    <nav>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About Us</a></li>
+        <li>
+          <a href="#">US Markets</a>
+          <ul class="dropdown">
+            <li><a href="us-breakouts.html">Breakouts</a></li>
+            <li><a href="us-patterns.html">Patterns</a></li>
+          </ul>
+        </li>
+        <li>
+          <a href="#">Indian Markets</a>
+          <ul class="dropdown">
+            <li><a href="indian-breakouts.html">Breakouts</a></li>
+            <li><a href="indian-patterns.html">Patterns</a></li>
+          </ul>
+        </li>
+        <li>
+          <a href="#">Commodities</a>
+          <ul class="dropdown">
+            <li><a href="commodities-breakouts.html">Breakouts</a></li>
+            <li><a href="commodities-patterns.html">Patterns</a></li>
+          </ul>
+        </li>
+        <li><a href="Blogs.html">Blogs</a></li>
+        <li><a href="Prediction.html">Prediction</a></li>
+        <li><a href="contact.html">Contact Us</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- <main>
+    <h1>Contact Us</h1>
+    <form action="#" method="post">
+      <div class="form-group">
+        <input type="text" name="name" placeholder="Name" required>
+        <input type="email" name="email" placeholder="Email" required>
+        <input type="tel" name="phone" placeholder="Phone Number" required>
+      </div>
+      <textarea name="message" placeholder="Your Message" rows="5" required></textarea>
+      <button type="submit">Submit</button>
+    </form>
+  </main> -->
+
+  <main>
+    <h1>Send us a message</h1>
+
+    <!-- <form id="contact-form">
+      <label for="name">Name:</label>
+      <input type="text" id="name" required>
+      <label for="email">Email:</label>
+      <input type="email" id="email" required>
+      <label for="tel">Phone Number:</label>
+      <input type="tel" id="phone" required>
+      <label for="message">Message:</label>
+      <textarea id="message" required></textarea>
+      <button type="submit">Submit</button>
+    </form> -->
+    <form id="contact-form">
+    <form action="#" method="post">
+        <div class="form-group">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" required>
+        </div>
+
+        <div class="form-group">
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+        </div>
+
+        <div class="form-group">
+            <label for="phone">Phone Number:</label>
+            <input type="tel" id="phone" name="phone">
+        </div>
+
+        <div class="form-group">
+            <label for="message">Message:</label>
+            <textarea id="message" name="message" rows="4" required></textarea>
+        </div>
+
+        <button type="submit">Submit</button>
+    </form>
+    </form>
+    <p id="status-message"></p>
+    
+  </main>
+  <!-- <script src="js/main.js"></script> -->
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+  <script>
+      (function() {
+          emailjs.init("Qbw7i3JccC2bUuD4Z"); // Replace with your EmailJS public key
+      })();
+
+      document.getElementById('contact-form').addEventListener('submit', function(e) {
+          e.preventDefault();
+
+          const name = document.getElementById('name').value;
+          const email = document.getElementById('email').value;
+          const phone = document.getElementById('phone').value;
+          const message = document.getElementById('message').value;
+
+          emailjs.send("service_adxdh6n", "template_2bxf958", {
+              from_name: name,
+              from_email: email,
+              from_phone: phone,
+              message: message
+          })
+          .then(function(response) {
+              document.getElementById('status-message').innerText = "Message sent successfully!";
+              document.getElementById('contact-form').reset();
+          }, function(error) {
+              document.getElementById('status-message').innerText = "Failed to send message. Please try again.";
+              console.error("Error:", error);
+          });
+      });
+  </script>
+
+  <footer>
+    <!-- <p>© 2024 GPT. All rights reserved.</p> -->
+  </footer>
+</body>
+</html>
