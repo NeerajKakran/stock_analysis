@@ -1,13 +1,18 @@
-// Table names and corresponding CSV files
+// Updated tableData mapping with merged columns
 const tableData = [
-    { name: "", file: "Nifty 50 Prediction 2025-01-27.csv" },
-    { name: "", file: "Nifty IT Prediction 2025-01-27.csv" },
-    { name: "", file: "Nifty Auto Prediction 2025-01-27.csv" },
-    { name: "", file: "Nifty Fin Services Prediction 2025-01-27.csv" },
-    { name: "", file: "Nifty FMCG Prediction 2025-01-27.csv" },
-    { name: "", file: "Nifty Metal Prediction 2025-01-27.csv" },
-    { name: "", file: "Nifty Bank Prediction 2025-01-27.csv" },
-    { name: "", file: "Nifty Infra Prediction 2025-01-27.csv" }
+    {
+        name: "Combined Table", // Combines data from columns 0, 3, and 6
+        files: [
+            "Nifty 50 Prediction 2025-01-27.csv",
+            "Nifty Fin Services Prediction 2025-01-27.csv",
+            "Nifty Infra Prediction 2025-01-27.csv",
+        ],
+    },
+    { name: "Nifty IT", file: "Nifty IT Prediction 2025-01-27.csv" },
+    { name: "Nifty Auto", file: "Nifty Auto Prediction 2025-01-27.csv" },
+    { name: "Nifty FMCG", file: "Nifty FMCG Prediction 2025-01-27.csv" },
+    { name: "Nifty Metal", file: "Nifty Metal Prediction 2025-01-27.csv" },
+    { name: "Nifty Bank", file: "Nifty Bank Prediction 2025-01-27.csv" },
 ];
 
 // Folder path for CSV files
@@ -24,27 +29,28 @@ function renderTableLayout() {
     // Add table header
     const headerRow = document.createElement('tr');
     const header = document.createElement('th');
-    header.setAttribute('colspan', 4); // Span across 4 columns
+    header.setAttribute('colspan', 3); // Adjusting colspan for a 3-column layout
     header.textContent = "Predictions for 27-Jan-25";
     header.style.textAlign = "center";
     headerRow.appendChild(header);
     table.appendChild(headerRow);
 
-    // Add rows and columns based on tableData
-    for (let i = 0; i < tableData.length; i += 4) {
-        const row = document.createElement('tr');
+    // Dynamically create rows and cells for the 3x2 layout
+    const columnsPerRow = 3; // Number of columns per row
+    let currentRow = null;
 
-        for (let j = i; j < i + 4; j++) {
-            const cell = document.createElement('td');
-            if (j < tableData.length) {
-                cell.textContent = tableData[j].name;
-                cell.id = `table-${j}`; // Assign unique ID for dynamic data population
-            }
-            row.appendChild(cell);
+    tableData.forEach((_, index) => {
+        if (index % columnsPerRow === 0) {
+            // Create a new row every 3 items
+            currentRow = document.createElement('tr');
+            table.appendChild(currentRow);
         }
 
-        table.appendChild(row);
-    }
+        // Create a cell for the current table
+        const cell = document.createElement('td');
+        cell.id = `table-${index}`; // Assign an ID for the cell
+        currentRow.appendChild(cell);
+    });
 
     container.appendChild(table);
 }
@@ -52,21 +58,35 @@ function renderTableLayout() {
 // Function to fetch and populate data into the respective tables
 function populateTableData() {
     tableData.forEach((table, index) => {
-        const filePath = `${folderPath}${table.file}`;
-        fetch(filePath)
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error(`Failed to load ${table.file}`);
-                }
-                return response.text();
-            })
-            .then(csvText => {
-                const data = parseCSV(csvText);
-                displayDataInCell(index, data);
-            })
-            .catch(error => {
-                console.error('Error:', error);
-            });
+        if (table.files) {
+            // Handle merged tables
+            Promise.all(
+                table.files.map(file =>
+                    fetch(`${folderPath}${file}`).then(response => response.text())
+                )
+            )
+                .then(csvTexts => {
+                    const combinedData = csvTexts
+                        .map(parseCSV)
+                        .flat(); // Merge all CSV data
+                    displayDataInCell(index, combinedData);
+                })
+                .catch(error => {
+                    console.error(`Error fetching data for ${table.name}:`, error);
+                });
+        } else {
+            // Handle individual tables
+            const filePath = `${folderPath}${table.file}`;
+            fetch(filePath)
+                .then(response => response.text())
+                .then(csvText => {
+                    const data = parseCSV(csvText);
+                    displayDataInCell(index, data);
+                })
+                .catch(error => {
+                    console.error(`Error fetching data for ${table.name}:`, error);
+                });
+        }
     });
 }
 
@@ -76,7 +96,7 @@ function parseCSV(csvText) {
     return rows.map(row => row.split(',').map(cell => cell.trim()));
 }
 
-// Display data in the corresponding cell
+// Display data for individual tables
 function displayDataInCell(index, data) {
     const cell = document.getElementById(`table-${index}`);
     if (cell) {
@@ -90,7 +110,7 @@ function displayDataInCell(index, data) {
                 cellElement.textContent = cellData;
 
                 // Apply color coding for predictions
-                if (rowIndex > 0 && cellIndex === 1) { // Assuming the prediction column is the second column
+                if (rowIndex > 0 && cellIndex === 1) {
                     if (cellData.toLowerCase() === 'up') {
                         cellElement.style.color = 'green';
                     } else if (cellData.toLowerCase() === 'down') {
@@ -98,11 +118,18 @@ function displayDataInCell(index, data) {
                     }
                 }
 
+                // Highlight cells containing the word "Nifty" and their corresponding prediction cell
+                if (rowIndex > 0 && row[0].toLowerCase().includes('nifty')) {
+                    if (cellIndex === 0 || cellIndex === 1) {
+                        cellElement.style.backgroundColor = 'lightyellow';
+                    }
+                }
+
                 tr.appendChild(cellElement);
             });
 
             // Add light yellow background to the header row
-            if (rowIndex === 1) {
+            if (rowIndex === 0) {
                 tr.style.backgroundColor = 'lightyellow';
             }
 
