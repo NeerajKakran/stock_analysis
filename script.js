@@ -1,17 +1,17 @@
 // Table names and corresponding CSV files
 const tableData = [
-    { name: "", file: "Nifty 50 Prediction 2025-01-24.csv" },
-    { name: "", file: "Nifty IT Prediction 2025-01-24.csv" },
-    { name: "", file: "Nifty Auto Prediction 2025-01-24.csv" },
-    { name: "", file: "Nifty Fin Services Prediction 2025-01-24.csv" },
-    { name: "", file: "Nifty FMCG Prediction 2025-01-24.csv" },
-    { name: "", file: "Nifty Metal Prediction 2025-01-24.csv" },
-    { name: "", file: "Nifty Bank Prediction 2025-01-24.csv" },
-    { name: "", file: "Nifty Infra Prediction 2025-01-24.csv" }
+    { name: "", file: "Nifty 50 Prediction 2025-01-27.csv" },
+    { name: "", file: "Nifty IT Prediction 2025-01-27.csv" },
+    { name: "", file: "Nifty Auto Prediction 2025-01-27.csv" },
+    { name: "", file: "Nifty Fin Services Prediction 2025-01-27.csv" },
+    { name: "", file: "Nifty FMCG Prediction 2025-01-27.csv" },
+    { name: "", file: "Nifty Metal Prediction 2025-01-27.csv" },
+    { name: "", file: "Nifty Bank Prediction 2025-01-27.csv" },
+    { name: "", file: "Nifty Infra Prediction 2025-01-27.csv" }
 ];
 
 // Folder path for CSV files
-const folderPath = './2025-01-24/';
+const folderPath = './2025-01-27/';
 
 // Function to render the table layout
 function renderTableLayout() {
@@ -25,7 +25,7 @@ function renderTableLayout() {
     const headerRow = document.createElement('tr');
     const header = document.createElement('th');
     header.setAttribute('colspan', 4); // Span across 4 columns
-    header.textContent = "Predictions for 24-Jan-25";
+    header.textContent = "Predictions for 27-Jan-25";
     header.style.textAlign = "center";
     headerRow.appendChild(header);
     table.appendChild(headerRow);
