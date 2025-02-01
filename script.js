@@ -3,16 +3,16 @@ const tableData = [
     {
         name: "Combined Table", // Combines data from columns 0, 3, and 6
         files: [
-            "Nifty 50 Prediction 2025-02-01.csv",
-            "Nifty Fin Services Prediction 2025-02-01.csv",
-            "Nifty Infra Prediction 2025-02-01.csv",
+            "Nifty 50 Prediction 2025-01-02.csv",
+            "Nifty Fin Services Prediction 2025-01-02.csv",
+            "Nifty Infra Prediction 2025-01-02.csv",
         ],
     },
-    { name: "Nifty IT", file: "Nifty IT Prediction 2025-02-01.csv" },
-    { name: "Nifty Auto", file: "Nifty Auto Prediction 2025-02-01.csv" },
-    { name: "Nifty FMCG", file: "Nifty FMCG Prediction 2025-02-01.csv" },
-    { name: "Nifty Metal", file: "Nifty Metal Prediction 2025-02-01.csv" },
-    { name: "Nifty Bank", file: "Nifty Bank Prediction 2025-02-01.csv" },
+    { name: "Nifty IT", file: "Nifty IT Prediction 2025-01-02.csv" },
+    { name: "Nifty Auto", file: "Nifty Auto Prediction 2025-01-02.csv" },
+    { name: "Nifty FMCG", file: "Nifty FMCG Prediction 2025-01-02.csv" },
+    { name: "Nifty Metal", file: "Nifty Metal Prediction 2025-01-02.csv" },
+    { name: "Nifty Bank", file: "Nifty Bank Prediction 2025-01-02.csv" },
 ];
 
 // Folder path for CSV files
