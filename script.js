@@ -30,7 +30,7 @@ function renderTableLayout() {
     const headerRow = document.createElement('tr');
     const header = document.createElement('th');
     header.setAttribute('colspan', 3); // Adjusting colspan for a 3-column layout
-    header.textContent = "Predictions for 28-March-25";
+    header.textContent = "Predictions for 25-March-28";
     header.style.textAlign = "center";
     headerRow.appendChild(header);
     table.appendChild(headerRow);
@@ -69,14 +69,7 @@ function populateTableData() {
                     const combinedData = csvTexts
                         .map(parseCSV)
                         .flat(); // Merge all CSV data
-
                     displayDataInCell(index, combinedData);
-
-                    // 🚀 Send merged table data to the webhook
-                    sendWebhookData({
-                        tableName: table.name,
-                        data: combinedData
-                    });
                 })
                 .catch(error => {
                     console.error(`Error fetching data for ${table.name}:`, error);
@@ -89,32 +82,12 @@ function populateTableData() {
                 .then(csvText => {
                     const data = parseCSV(csvText);
                     displayDataInCell(index, data);
-
-                    // 🚀 Send individual table data to the webhook
-                    sendWebhookData({
-                        tableName: table.name,
-                        data: data
-                    });
                 })
                 .catch(error => {
                     console.error(`Error fetching data for ${table.name}:`, error);
                 });
         }
     });
-}
-
-// Function to send data to the webhook
-function sendWebhookData(data) {
-    fetch('http://localhost:3000/webhook', { // 🔹 Update this URL if hosted
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(data),
-    })
-    .then(response => response.json())
-    .then(responseData => console.log('Webhook Success:', responseData))
-    .catch(error => console.error('Webhook Error:', error));
 }
 
 // Parse CSV text into an array of arrays
