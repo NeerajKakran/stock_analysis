@@ -3,20 +3,20 @@ const tableData = [
     {
         name: "Combined Table", // Combines data from columns 0, 3, and 6
         files: [
-            "Nifty 50 Prediction 2025-04-17.csv",
-            "Nifty Fin Services Prediction 2025-04-17.csv",
-            "Nifty Infra Prediction 2025-04-17.csv",
+            "Nifty 50 Prediction 2025-04-21.csv",
+            "Nifty Fin Services Prediction 2025-04-21.csv",
+            "Nifty Infra Prediction 2025-04-21.csv",
         ],
     },
-    { name: "Nifty IT", file: "Nifty IT Prediction 2025-04-17.csv" },
-    { name: "Nifty Auto", file: "Nifty Auto Prediction 2025-04-17.csv" },
-    { name: "Nifty FMCG", file: "Nifty FMCG Prediction 2025-04-17.csv" },
-    { name: "Nifty Metal", file: "Nifty Metal Prediction 2025-04-17.csv" },
-    { name: "Nifty Bank", file: "Nifty Bank Prediction 2025-04-17.csv" },
+    { name: "Nifty IT", file: "Nifty IT Prediction 2025-04-21.csv" },
+    { name: "Nifty Auto", file: "Nifty Auto Prediction 2025-04-21.csv" },
+    { name: "Nifty FMCG", file: "Nifty FMCG Prediction 2025-04-21.csv" },
+    { name: "Nifty Metal", file: "Nifty Metal Prediction 2025-04-21.csv" },
+    { name: "Nifty Bank", file: "Nifty Bank Prediction 2025-04-21.csv" },
 ];
 
 // Folder path for CSV files
-const folderPath = './2025-04-17/';
+const folderPath = './2025-04-21/';
 
 // Function to render the table layout
 function renderTableLayout() {
@@ -30,7 +30,7 @@ function renderTableLayout() {
     const headerRow = document.createElement('tr');
     const header = document.createElement('th');
     header.setAttribute('colspan', 3); // Adjusting colspan for a 3-column layout
-    header.textContent = "Predictions for 25-April-17";
+    header.textContent = "Predictions for 25-April-21";
     header.style.textAlign = "center";
     headerRow.appendChild(header);
     table.appendChild(headerRow);
