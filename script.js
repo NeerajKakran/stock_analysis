@@ -3,7 +3,7 @@ const tableData = [
     {
         name: "Combined Table", // Combines data from columns 0, 3, and 6
         files: [
-            "Nifty 50 Prediction 2025-05-02.csv9
+            "Nifty 50 Prediction 2025-05-02.csv,
             "Nifty Fin Services Prediction 2025-05-02.csv",
             "Nifty Infra Prediction 2025-05-02.csv",
         ],
