@@ -96,10 +96,11 @@ function parseCSV(csvText) {
     return rows.map(row => row.split(',').map(cell => cell.trim()));
 }
 
-// Display data for individual tables
 function displayDataInCell(index, data) {
     const cell = document.getElementById(`table-${index}`);
     if (!cell) return;
+
+    cell.innerHTML = ''; // Clear previous content
 
     const table = document.createElement('table');
     table.classList.add('data-table');
@@ -108,10 +109,11 @@ function displayDataInCell(index, data) {
         const tr = document.createElement('tr');
 
         row.forEach((cellData, cellIndex) => {
+            // We expect 4 columns now
             const cellElement = document.createElement(rowIndex === 0 ? 'th' : 'td');
             cellElement.textContent = cellData;
 
-            //  Color coding for trend column (index 1)
+            // Color coding for Prediction column (index 1)
             if (rowIndex > 0 && cellIndex === 1) {
                 const trend = cellData.toLowerCase();
                 if (trend === 'up') {
@@ -121,22 +123,27 @@ function displayDataInCell(index, data) {
                 }
             }
 
-            //  Highlight Nifty rows (index 0 match)
+            // Highlight rows with 'nifty' in Symbol column (index 0)
             if (rowIndex > 0 && row[0].toLowerCase().includes('nifty')) {
                 if (cellIndex >= 0 && cellIndex <= 3) {
                     cellElement.style.backgroundColor = 'lightyellow';
                 }
             }
 
-            // Optional: right-align numeric values
-            if (rowIndex > 0 && cellIndex >= 2) {
+            // Right-align numeric columns (Price LR and Price SARIMA - indexes 2 and 3)
+            if (rowIndex > 0 && (cellIndex === 2 || cellIndex === 3)) {
                 cellElement.style.textAlign = 'right';
+            }
+
+            // Align Symbol column (index 0) to left
+            if (cellIndex === 0) {
+                cellElement.style.textAlign = 'left';
             }
 
             tr.appendChild(cellElement);
         });
 
-        // Header row background
+        // Header background
         if (rowIndex === 0) {
             tr.style.backgroundColor = 'lightyellow';
         }
@@ -146,6 +153,7 @@ function displayDataInCell(index, data) {
 
     cell.appendChild(table);
 }
+
 
 // Initial render
 renderTableLayout();
