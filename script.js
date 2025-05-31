@@ -1,7 +1,7 @@
 // Updated tableData mapping with merged columns
 const tableData = [
     {
-        name: "Combined Table", // Combines data from columns 0, 3, and 6
+        name: "Combined Table", // Combines data from multiple sectors
         files: [
             "Nifty 50 Prediction 2025-05-30.csv",
             "Nifty Fin Services Prediction 2025-05-30.csv",
@@ -99,45 +99,52 @@ function parseCSV(csvText) {
 // Display data for individual tables
 function displayDataInCell(index, data) {
     const cell = document.getElementById(`table-${index}`);
-    if (cell) {
-        const table = document.createElement('table');
-        table.classList.add('data-table');
+    if (!cell) return;
 
-        data.forEach((row, rowIndex) => {
-            const tr = document.createElement('tr');
-            row.forEach((cellData, cellIndex) => {
-                const cellElement = document.createElement(rowIndex === 0 ? 'th' : 'td');
-                cellElement.textContent = cellData;
+    const table = document.createElement('table');
+    table.classList.add('data-table');
 
-                // Apply color coding for predictions
-                if (rowIndex > 0 && cellIndex === 1) {
-                    if (cellData.toLowerCase() === 'up') {
-                        cellElement.style.color = 'green';
-                    } else if (cellData.toLowerCase() === 'down') {
-                        cellElement.style.color = 'red';
-                    }
+    data.forEach((row, rowIndex) => {
+        const tr = document.createElement('tr');
+
+        row.forEach((cellData, cellIndex) => {
+            const cellElement = document.createElement(rowIndex === 0 ? 'th' : 'td');
+            cellElement.textContent = cellData;
+
+            //  Color coding for trend column (index 1)
+            if (rowIndex > 0 && cellIndex === 1) {
+                const trend = cellData.toLowerCase();
+                if (trend === 'up') {
+                    cellElement.style.color = 'green';
+                } else if (trend === 'down') {
+                    cellElement.style.color = 'red';
                 }
-
-                // Highlight cells containing the word "Nifty" and their corresponding prediction cell
-                if (rowIndex > 0 && row[0].toLowerCase().includes('nifty')) {
-                    if (cellIndex === 0 || cellIndex === 1) {
-                        cellElement.style.backgroundColor = 'lightyellow';
-                    }
-                }
-
-                tr.appendChild(cellElement);
-            });
-
-            // Add light yellow background to the header row
-            if (rowIndex === 0) {
-                tr.style.backgroundColor = 'lightyellow';
             }
 
-            table.appendChild(tr);
+            //  Highlight Nifty rows (index 0 match)
+            if (rowIndex > 0 && row[0].toLowerCase().includes('nifty')) {
+                if (cellIndex >= 0 && cellIndex <= 3) {
+                    cellElement.style.backgroundColor = 'lightyellow';
+                }
+            }
+
+            // Optional: right-align numeric values
+            if (rowIndex > 0 && cellIndex >= 2) {
+                cellElement.style.textAlign = 'right';
+            }
+
+            tr.appendChild(cellElement);
         });
 
-        cell.appendChild(table);
-    }
+        // Header row background
+        if (rowIndex === 0) {
+            tr.style.backgroundColor = 'lightyellow';
+        }
+
+        table.appendChild(tr);
+    });
+
+    cell.appendChild(table);
 }
 
 // Initial render
