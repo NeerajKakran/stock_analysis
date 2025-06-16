@@ -16,7 +16,7 @@ const tableData = [
 ];
 
 // Folder path for CSV files
-const folderPath = './2025-06-16_1/';
+const folderPath = './2025-06-16/';
 
 // Function to render the table layout
 function renderTableLayout() {
