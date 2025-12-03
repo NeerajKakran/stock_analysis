@@ -30,7 +30,7 @@ function renderTableLayout() {
     const headerRow = document.createElement('tr');
     const header = document.createElement('th');
     header.setAttribute('colspan', 3); // Adjusting colspan for a 3-column layout
-    header.textContent = "Predictions for 03-December-28";
+    header.textContent = "Predictions for 03-December-25";
     header.style.textAlign = "center";
     headerRow.appendChild(header);
     table.appendChild(headerRow);
@@ -158,6 +158,7 @@ function displayDataInCell(index, data) {
 // Initial render
 renderTableLayout();
 populateTableData();
+
 
 
 
