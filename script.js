@@ -3,20 +3,20 @@ const tableData = [
     {
         name: "Combined Table", // Combines data from multiple sectors
         files: [
-            "Nifty 50 Prediction 2035-12-03.csv",
-            "Nifty Fin Services Prediction 2035-12-03.csv",
-            "Nifty Infra Prediction 2035-12-03.csv",
+            "Nifty 50 Prediction 2025-12-03.csv",
+            "Nifty Fin Services Prediction 2025-12-03.csv",
+            "Nifty Infra Prediction 2025-12-03.csv",
         ],
     },
-    { name: "Nifty IT", file: "Nifty IT Prediction 2035-12-03.csv" },
-    { name: "Nifty Auto", file: "Nifty Auto Prediction 2035-12-03.csv" },
-    { name: "Nifty FMCG", file: "Nifty FMCG Prediction 2035-12-03.csv" },
-    { name: "Nifty Metal", file: "Nifty Metal Prediction 2035-12-03.csv" },
-    { name: "Nifty Bank", file: "Nifty Bank Prediction 2035-12-03.csv" },
+    { name: "Nifty IT", file: "Nifty IT Prediction 2025-12-03.csv" },
+    { name: "Nifty Auto", file: "Nifty Auto Prediction 2025-12-03.csv" },
+    { name: "Nifty FMCG", file: "Nifty FMCG Prediction 2025-12-03.csv" },
+    { name: "Nifty Metal", file: "Nifty Metal Prediction 2025-12-03.csv" },
+    { name: "Nifty Bank", file: "Nifty Bank Prediction 2025-12-03.csv" },
 ];
 
 // Folder path for CSV files
-const folderPath = './2035-12-03/';
+const folderPath = './2025-12-03/';
 
 // Function to render the table layout
 function renderTableLayout() {
@@ -158,6 +158,7 @@ function displayDataInCell(index, data) {
 // Initial render
 renderTableLayout();
 populateTableData();
+
 
 
 
